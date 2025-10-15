@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="stylesheet" href="./index.css" />
+    <title>Art Coffeese</title>
+  </head>
+
+  <body>
+    <!-- Decorative background images scattered around the page -->
+    <div class="background-img" aria-hidden="true">
+      <img class="bg-item bg-1" src="./assets/art-portf.png" alt="" />
+      <img class="bg-item bg-4" src="./assets/fish.png" alt="" />
+    </div>
+
+    <section class="art-carousel" aria-label="Artwork carousel">
+      <div class="wrapper">
+        <div class="image previous2">
+          <img class="img" src="https://res.cloudinary.com/dlmrdg44d/image/upload/v1759239149/Art/M_hj3i3b.jpg" alt="" />
+        </div>
+        <div class="image previous">
+          <img class="img" src="https://res.cloudinary.com/dlmrdg44d/image/upload/v1759239149/Art/Fish_ffw3bq.jpg" alt="" />
+        </div>
+        <div class="image active">
+          <img class="img" src="https://res.cloudinary.com/dlmrdg44d/image/upload/v1759239149/Art/Penguin_rvgpfp.jpg" alt="" />
+        </div>
+        <div class="image next">
+          <img class="img" src="https://res.cloudinary.com/dlmrdg44d/image/upload/v1759239149/Art/Stamp-smile_n0l7or.jpg" alt="" />
+        </div>
+        <div class="image next2">
+          <img class="img" src="https://res.cloudinary.com/dlmrdg44d/image/upload/v1759239149/Art/Mood_m1s7ni.jpg" alt="" />
+        </div>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <div class="footer">© 2025 Art Coffeese — All rights reserved</div>
+    </footer>
+
+    <!-- 🔍 Lightbox popup -->
+    <div id="lightbox">
+      <span id="closeBtn">&times;</span>
+      <img id="lightbox-img" src="" alt="Expanded view" />
+    </div>
+
+    <script>
+      // --- Carousel behavior ---
+      let images = document.querySelectorAll('.image');
+      let classes = ['previous2', 'previous', 'active', 'next', 'next2'];
+
+      function updateSlider(direction) {
+        if (direction === 'next') {
+          classes.unshift(classes.pop());
+        } else if (direction === 'prev') {
+          classes.push(classes.shift());
+        }
+        images.forEach((img, i) => {
+          img.className = 'image ' + classes[i];
+        });
+      }
+
+      images.forEach((el) => {
+        el.addEventListener('click', () => {
+          if (el.classList.contains('previous2') || el.classList.contains('previous')) {
+            updateSlider('prev');
+          } else if (el.classList.contains('next2') || el.classList.contains('next')) {
+            updateSlider('next');
+          } else if (el.classList.contains('active')) {
+            // 👇 open lightbox when clicking the active image
+            const src = el.querySelector('img').src;
+            document.getElementById('lightbox-img').src = src;
+            document.getElementById('lightbox').classList.add('show');
+          }
+        });
+      });
+
+      // --- Lightbox close behavior ---
+      document.getElementById('closeBtn').addEventListener('click', () => {
+        document.getElementById('lightbox').classList.remove('show');
+      });
+
+      // Optional: click outside image to close
+      document.getElementById('lightbox').addEventListener('click', (e) => {
+        if (e.target.id === 'lightbox') {
+          e.currentTarget.classList.remove('show');
+        }
+      });
+    </script>
+  </body>
+</html>

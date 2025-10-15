@@ -1,0 +1,182 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #a8b2d5; 
+    min-height: 100vh;
+}
+
+/* layout variables (tweak these to match your background images) */
+:root {
+    --bg1-left: 5%;
+    --bg1-top: 10%;
+    --bg1-width: 500px;
+    --bg4-left: 80%;
+    --bg4-top: 0%;
+    --bg4-width: 300px;
+    --carousel-gap: 40px; /* space between left bg image and carousel */
+}
+
+
+/* Background scattered images container */
+.background-img {
+    position: fixed; /* stay in place while scrolling */
+    inset: 0; /* top:0; right:0; bottom:0; left:0 */
+    pointer-events: none; /* don't block clicks */
+    overflow: hidden;
+    z-index: 0; /* behind most content; bring forward where needed */
+}
+
+.background-img .bg-item {
+    position: absolute;
+    user-select: none;
+    -webkit-user-drag: none;
+    opacity: 0.98;
+    transform-origin: center center;
+}
+
+/* Individual placements and sizes (static - no animation) */
+.bg-1 { width: var(--bg1-width); top: var(--bg1-top); left: var(--bg1-left); }
+.bg-4 { width: var(--bg4-width); top: var(--bg4-top); left: var(--bg4-left); }
+
+.site-footer {
+    text-align: center;
+    margin-top: auto; 
+    padding: 100px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+
+.art-carousel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 800px;
+    padding-left: 400px;
+    flex-direction: column;
+}
+
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+    perspective: 1000px;
+}
+
+.image {
+    position: absolute;
+    width: 300px;
+    height: 400px;
+    cursor: pointer;
+    transition: all 0.5s ease-in-out;
+    transform-style: preserve-3d;
+}
+
+.img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 20px;
+}
+
+.previous2 {
+    transform: translateX(-70px) translateY(10px) scale(0.6);
+    left: 25%;
+    z-index: -10;
+}
+
+.previous {
+    transform: translateX(-70px) translateY(10px) scale(0.7);
+    left: 30%;
+    z-index: -10;
+}
+
+.active {
+    left: 40%;
+    transform: translateY(10px) translateX(-70px);
+    z-index: 10;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.next {
+    transform: translateX(-70px) translateY(10px) scale(0.7);
+    left: 50%;
+    z-index: -10;
+}
+
+.next2 {
+    transform: translateX(-70px) translateY(10px) scale(0.6);
+    left: 55%;
+    z-index: -20;
+}
+
+/* Lightbox overlay */
+#lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  transition: 0.3s ease;
+}
+
+#lightbox.show {
+  display: flex;
+}
+
+#lightbox img {
+  max-width: 90%;
+  max-height: 85vh;
+  border-radius: 15px;
+  box-shadow: 0 0 25px rgba(255, 255, 255, 0.2);
+  animation: zoomIn 0.3s ease;
+}
+
+@keyframes zoomIn {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* Close button */
+#closeBtn {
+  position: absolute;
+  top: 30px;
+  right: 50px;
+  font-size: 2.5rem;
+  color: white;
+  cursor: pointer;
+  user-select: none;
+  transition: 0.2s;
+}
+
+#closeBtn:hover {
+  transform: scale(1.2);
+  color: #ffd670;
+}
